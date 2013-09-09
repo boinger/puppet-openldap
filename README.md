@@ -23,7 +23,7 @@ Ldap client configuration at its simplest:
 Enable TLS/SSL:
 
 Note that *ssl_cert* should be the CA's certificate file, and
-it should be located under *puppet:///files/ldap/*.
+it defaults to being located under *puppet:///files/ldap/* (override with `file_prefix` parameter).
 
     class { 'ldap':
     	uri      => 'ldap://ldapserver00 ldap://ldapserver01',
@@ -86,8 +86,8 @@ With TLS/SSL enabled:
       ssl_key     => 'master-ldap.key',
     }
 
-*NOTE*: SSL certificates should reside in you puppet master
-file repository 'puppet:///files/ldap/'
+*NOTE*: SSL certificates should reside in your puppet master
+file repository 'puppet:///files/ldap/' unless overridden with `file_prefix` parameter unless overridden with `file_prefix` parameter
 
 #### Slave server ####
 
