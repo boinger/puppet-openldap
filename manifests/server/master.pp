@@ -182,6 +182,7 @@ class ldap::server::master(
     mode    => 0640,
     owner   => $ldap::params::server_owner,
     group   => $ldap::params::server_group,
+    require => Package["openldap-servers"],
   }
 
   file { "${ldap::params::prefix}/${ldap::params::server_config}":
