@@ -29,3 +29,4 @@ SLAPD_LDAP=yes
 SLAPD_LDAPS=<% if @ssl -%>yes<% else %>no<% end %>
 SLAPD_LDAPI=yes
 
+SLAPD_OPTIONS="-f /etc/openldap/slapd.conf"
