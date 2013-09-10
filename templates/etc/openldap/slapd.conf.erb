@@ -23,6 +23,9 @@ argsfile        <%= scope.lookupvar('ldap::params::server_run') %>/slapd.args
 
 # Read slapd.conf(5) for possible values
 loglevel	<%= @log_level %>
+<% if @log_file and @log_file != false then -%>
+logfile	<%= @log_file %>
+<% end -%>
 
 modulepath	<%= scope.lookupvar('ldap::params::module_prefix') %>
 <% scope.lookupvar('ldap::params::modules_base').each do |mod| -%>
