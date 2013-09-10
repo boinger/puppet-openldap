@@ -37,10 +37,12 @@
 # Copyleft (C) 2012 Emiliano Castagnari ecastag@gmail.com (a.k.a. Torian)
 #
 #
-class ldap($ensure = present) {
+class ldap (
+  $ensure = present,
+  ) {
 
     include stdlib
-    include ldap::params
+    require ldap::params
 
     package { $ldap::params::package :
       ensure => $ensure,
