@@ -142,7 +142,8 @@ class ldap::server::master(
   $ensure              = present,
   ) {
 
-  require ldap
+  require ::ldap
+  require ::ldap::params
 
   if($enable_motd) {
     motd::register { 'ldap::server::master': }
