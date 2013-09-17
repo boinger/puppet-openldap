@@ -1,4 +1,3 @@
-
 class ldap::params {
 
   case $::osfamily {
