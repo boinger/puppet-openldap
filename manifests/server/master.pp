@@ -164,7 +164,7 @@ class ldap::server::master(
           user    => $runuser,
           loguser => $loguser,
           run     => template("${module_name}/run.erb"),
-          logrun  => template("${module_name}/log/run.erb"),
+          logrun  => template("${module_name}/logrun.erb"),
           notify  => Daemontools::Service[$ldap::params::service];
       }
 
