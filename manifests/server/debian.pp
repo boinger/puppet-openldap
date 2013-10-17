@@ -9,7 +9,7 @@ class ldap::server::debian($ssl) {
     group   => root,
     mode    => 0644,
     content => template('ldap/etc/default/slapd.erb'),
-    notify  => Service[$ldap::params::service]
+    notify  => Daemontools::Service[$ldap::params::service]
   }
 
 }

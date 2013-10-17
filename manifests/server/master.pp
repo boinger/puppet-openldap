@@ -211,7 +211,7 @@ class ldap::server::master(
   file { "${ldap::params::prefix}/${ldap::params::server_config}":
     ensure  => $ensure,
     content => template("ldap/${ldap::params::prefix}/${ldap::params::server_config}.erb"),
-    notify  => Service[$ldap::params::service],
+    notify  => Daemontools::Service[$ldap::params::service],
     require => $ssl ? {
       false => [
         Package[$ldap::params::server_package],
