@@ -141,6 +141,7 @@ class ldap::server::master(
   $sync_binddn         = false,
   $enable_motd         = false,
   $ensure              = present,
+  $service_provider    = 'daemontools',
   ) {
 
   require ::ldap
@@ -154,14 +155,34 @@ class ldap::server::master(
     ensure => $ensure
   }
 
-  service { $ldap::params::service:
-    ensure     => running,
-    enable     => true,
-    pattern    => $ldap::params::server_pattern,
-    require    => [
-      Package[$ldap::params::server_package],
-      File["${ldap::params::prefix}/${ldap::params::server_config}"],
-      ]
+  if ($service_provider == 'daemontools') {
+      $runuser = ldap
+      $loguser = ldap
+
+      daemontools::setup{
+        $ldap::params::service:
+          user    => $runuser,
+          loguser => $loguser,
+          run     => template("${module_name}/run.erb"),
+          logrun  => template("${module_name}/log/run.erb"),
+          notify  => Daemontools::Service[$ldap::params::service];
+      }
+
+      daemontools::service {
+        $ldap::params::service:
+          source  => "/etc/$ldap::params::service",
+          require => Daemontools::Setup[$ldap::params::service];
+      }
+  } else {
+    service { $ldap::params::service:
+      ensure     => running,
+      enable     => true,
+      pattern    => $ldap::params::server_pattern,
+      require    => [
+        Package[$ldap::params::server_package],
+        File["${ldap::params::prefix}/${ldap::params::server_config}"],
+        ]
+    }
   }
 
   if (!empty($cnconfig_attrs)) {
