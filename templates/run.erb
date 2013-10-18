@@ -1,9 +1,8 @@
 #!/bin/sh
 exec 2>&1
 echo "*** Starting slapd..."
-exec envuidgid <%= @runuser %> \
+exec \
   /usr/sbin/slapd \
-  -h  ldap:/// ldaps:/// ldapi:/// \
+  -h  ldaps:/// ldapi:/// \
   -u <%= @runuser %> \
-  -d 256 \
   -f /etc/openldap/slapd.conf
