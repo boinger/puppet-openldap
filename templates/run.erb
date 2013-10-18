@@ -3,6 +3,7 @@ exec 2>&1
 echo "*** Starting slapd..."
 exec \
   /usr/sbin/slapd \
-  -h  ldaps:/// ldapi:/// \
+  -h ldaps:/// ldapi:/// \
   -u <%= @runuser %> \
+  -d 256 \
   -f /etc/openldap/slapd.conf
