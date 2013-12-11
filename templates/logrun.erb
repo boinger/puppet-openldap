@@ -1,4 +1,4 @@
 #!/bin/sh
 [ -d ./main ] || mkdir ./main
 chown -Rf <%= @loguser %> .
-exec setuidgid <%= @loguser %> multilog s5000000 '!tai64nlocal' ./main
+exec setuidgid <%= @loguser %> multilog t s5242880 ./main
