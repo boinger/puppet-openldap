@@ -3,7 +3,6 @@ exec 2>&1
 echo "*** Starting slapd..."
 exec \
   /usr/sbin/slapd \
-  -4 \
   -h 'ldap:/// ldaps:/// ldapi:///' \
   -u <%= @runuser %> \
   -d 256 \
