@@ -171,13 +171,15 @@ class ldap::server::master(
       daemontools::service {
         $ldap::params::service:
           source  => "/etc/$ldap::params::service",
-          require => Daemontools::Setup[$ldap::params::service];
+          require => Daemontools::Setup[$ldap::params::service],
+          subscribe => File["${ldap::params::ssl_prefix}/${ssl_cert}"];
       }
   } else {
     service { $ldap::params::service:
       ensure     => running,
       enable     => true,
       pattern    => $ldap::params::server_pattern,
+      subscribe => File["${ldap::params::ssl_prefix}/${ssl_cert}"],
       require    => [
         Package[$ldap::params::server_package],
         File["${ldap::params::prefix}/${ldap::params::server_config}"],
